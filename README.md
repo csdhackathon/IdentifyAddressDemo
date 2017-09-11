@@ -2,7 +2,7 @@
 
 # Pitney Bowes SMB Hackathon
 
-## Sample App showcasing consumption of [Pitney Bowes Location Intelligence APIs] (http://www.pitneybowes.com/us/developer/geocoding-apis.html)
+### Sample App showcasing consumption of [Pitney Bowes Location Intelligence APIs] (http://www.pitneybowes.com/us/developer/geocoding-apis.html)
 
 ### Use Case
 Targeted Marketing to nearby customers
