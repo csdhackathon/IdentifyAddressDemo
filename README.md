@@ -2,14 +2,19 @@
 
 # Pitney Bowes SMB Hackathon
 
-### Sample App showcasing consumption of [Pitney Bowes Identify APIs](http://www.pitneybowes.com/us/developer/customer-data-apis.html)
+### Sample App showcasing consumption of [Pitney Bowes Identify APIs](http://www.pitneybowes.com/us/developer/customer-data-apis.html) and [Pitney Bowes Locate APIs](http://www.pitneybowes.com/us/developer/geocoding-apis.html)
 
 ### Use Case
-Address Validation to Ensure Correctness
+Address Validation to Ensure Correctness and Demographic information of a customer
 
 ### Description
-Real, accurate and complete address. Eliminate errors in address data, improve customer experience. IdentifyAddress makes communication easier, faster and effortless by enriching customer details, keeping it up-to-date and maintaining its accuracy and consistency. It eliminates redundancy in reaching out to customers and makes it easy for distinct functional areas to work seamlessly in improving customer relationship.
+The app showcases PBs capabilities to enrich customer information with demographic information and these additional attributes can be further used to create customer segments and run marketing campaigns.
 
 ### Locate APIs Used:
 
 * [IdentifyAddress](https://identify.pitneybowes.com/identifyaddress): Used to Validate Address.
+* [GeoLife](https://locate.pitneybowes.com/geolife) Used for Demographic Data.
+
+### Prerequisite:
+
+Enter API_KEY and SECRET in the placeholder in Activity files to make it run.
