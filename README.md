@@ -17,4 +17,4 @@ The app showcases PBs capabilities to enrich customer information with demograph
 
 ### Prerequisite:
 
-Enter API_KEY and SECRET in the placeholder in Activity files to make it run.
+Enter API_KEY and SECRET in the placeholder in build.gradle and build the app to make it run.

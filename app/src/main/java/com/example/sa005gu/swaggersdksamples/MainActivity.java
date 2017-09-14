@@ -3,9 +3,11 @@ package com.example.sa005gu.swaggersdksamples;
 import com.example.sa005gu.swaggersdksamples.R;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,8 +45,9 @@ import pb.locationintelligence.model.DemographicsThemes;
 
 public class MainActivity extends AppCompatActivity {
 
-    String address;
-    String country;
+    String address = "";
+    String country = "";
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -78,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra("Address",address);
                 intent.putExtra("Block_Address",block_address);
+                intent.putExtra("Country",country);
 
                 startActivity(intent);
             }
@@ -106,22 +110,37 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                final String API_KEY = context.getString(R.string.API_KEY);
+                final String SECRET =   context.getString(R.string.SECRET);
+                if (API_KEY.isEmpty() || SECRET.isEmpty())
+                {
 
-                final String API_KEY = "<API_KEY>";
-                final String SECRET = "<SECRET>";
-                IdentifyServiceManager identifyServiceManager = IdentifyServiceManager.getInstance(context, API_KEY, SECRET);
+                    AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setTitle("API_KEY and SECRET Missing");
+                    alertDialog.setMessage("Enter your API_KEY and SECRET in build.gradle file to make this app running");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                }
+                else {
+                    IdentifyServiceManager identifyServiceManager = IdentifyServiceManager.getInstance(context, API_KEY, SECRET);
 
-                Address address2 = new Address();
-                address2.setAddressLine1(((EditText) findViewById(R.id.textAddressLine1)).getText().toString());
-                address2.setAddressLine2(((EditText) findViewById(R.id.textAddressLine2)).getText().toString());
-                address2.setCity(((EditText) findViewById(R.id.textCity)).getText().toString());
-                address2.setStateProvince(((EditText) findViewById(R.id.textState)).getText().toString());
-                address2.setCountry(((EditText) findViewById(R.id.textCountry)).getText().toString());
-                address2.setFirmName(((EditText) findViewById(R.id.textFirmName)).getText().toString());
+                    Address address2 = new Address();
+                    address2.setAddressLine1(((EditText) findViewById(R.id.textAddressLine1)).getText().toString());
+                    address2.setAddressLine2(((EditText) findViewById(R.id.textAddressLine2)).getText().toString());
+                    address2.setCity(((EditText) findViewById(R.id.textCity)).getText().toString());
+                    address2.setStateProvince(((EditText) findViewById(R.id.textState)).getText().toString());
+                    address2.setCountry(((EditText) findViewById(R.id.textCountry)).getText().toString());
+                    address2.setFirmName(((EditText) findViewById(R.id.textFirmName)).getText().toString());
 
 
-                final ValidateMailingAddressProAPIResponseList validateMailingAddressResponse = new ValidateMailingAddressProAPIResponseList();
-                identifyServiceManager.getIdentifyAddressService().validateMailingAddressPro(context, Arrays.asList(address2), null, validateMailingAddressProCallBack(validateMailingAddressResponse.getResponses(), null));
+                    final ValidateMailingAddressProAPIResponseList validateMailingAddressResponse = new ValidateMailingAddressProAPIResponseList();
+                    identifyServiceManager.getIdentifyAddressService().validateMailingAddressPro(context, Arrays.asList(address2), null, validateMailingAddressProCallBack(validateMailingAddressResponse.getResponses(), null));
+                }
             }
         });
 
@@ -136,40 +155,11 @@ public class MainActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.textState)).setText("");
                 ((EditText) findViewById(R.id.textFirmName)).setText("");
                 ((EditText) findViewById(R.id.textPostalCode)).setText("");
-                ((TextView) findViewById(R.id.textOutput)).setText("Validate Address Response");
+
             }
         });
 
-        /*Button demographicButton = (Button) findViewById(R.id.buttonDemographic);
-        demographicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-              //  new MyAsyncTask().execute();
-               *//* final LIAPIGeoLifeServiceApi api = new LIAPIGeoLifeServiceApi();
-                Demographics resp = null;
-
-                try {
-                    Log.d("GeoLife " + "getDemographicsByAddress");
-                    Log.d("GeoLife " + address);
-                    resp = api.getDemographicsByAddress(address, null, null, country);
-                    Gson gson = new GsonBuilder().create();
-                    String response1 = gson.toJson(resp);
-                    Log.d(response1);
-                } catch (ApiException e) {
-                    e.printStackTrace();
-                }*//*
-
-
-                TextView view =  (TextView) findViewById(R.id.textOutput);
-                view.setVisibility(View.INVISIBLE);
-                ((TextView) findViewById(R.id.textOutput1)).setText("Demographic details -");
-                TextView view1 =  (TextView) findViewById(R.id.textOutput1);
-                view1.setVisibility(View.VISIBLE);
-
-            }
-        });*/
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
+                // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }

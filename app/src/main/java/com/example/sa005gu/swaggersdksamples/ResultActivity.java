@@ -21,7 +21,9 @@ import pb.locationintelligence.model.DemographicsThemes;
 
 public class ResultActivity extends AppCompatActivity {
 
-    String Addressvalidated;
+    String Addressvalidated = "";
+    String Country = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,40 @@ public class ResultActivity extends AppCompatActivity {
 
         Addressvalidated = getIntent().getStringExtra("Address");
         String block_add = getIntent().getStringExtra("Block_Address");
+        String countryvalidated = getIntent().getStringExtra("Country");
+
+
+
+        if (countryvalidated.equalsIgnoreCase("United States of America"))
+        {   Country = "USA";
+        }
+        else if(countryvalidated.equalsIgnoreCase("Canada"))
+        {   Country = "CAN";
+        }
+        else if(countryvalidated.equalsIgnoreCase("Great Britain"))
+        {   Country = "GBR";
+        }
+        else if(countryvalidated.equalsIgnoreCase("Italy"))
+        {   Country = "ITL";
+        }
+        else if(countryvalidated.equalsIgnoreCase("India"))
+        {   Country = "IND";
+        }
+        else if(countryvalidated.equalsIgnoreCase("Australia"))
+        {   Country = "AUS";
+        }
+        else if(countryvalidated.equalsIgnoreCase("France"))
+        {   Country = "FRA";
+        }
+        else if(countryvalidated.equalsIgnoreCase("Germany"))
+        {   Country = "DEU";
+        }
+        else
+        {
+            Country = "countryvalidated";
+        }
+
+        Log.d(Country);
 
         TextView textView = (TextView) findViewById(R.id.Validated_Address_Value);
         textView.setText(block_add);
@@ -70,8 +106,11 @@ public class ResultActivity extends AppCompatActivity {
         @Override
         protected Demographics doInBackground(Object[] params) {
             ApiClient defaultClient = Configuration.getDefaultApiClient();
-            defaultClient.setoAuthApiKey("<API_KEY>");
-            defaultClient.setoAuthSecret("<SECRET>");
+            final String  API_KEY = getApplicationContext().getString(R.string.API_KEY);
+            final String SECRET = getApplicationContext().getString(R.string.SECRET);
+
+            defaultClient.setoAuthApiKey(API_KEY);
+            defaultClient.setoAuthSecret(SECRET);
 
             final LIAPIGeoLifeServiceApi api = new LIAPIGeoLifeServiceApi();
 
@@ -84,7 +123,7 @@ public class ResultActivity extends AppCompatActivity {
 
             try {
                 Log.d("GeoLife" + "getDemographicsByAddress" + Addressvalidated);
-                resp = api.getDemographicsByAddress(Addressvalidated, profile, filter, "USA");
+                resp = api.getDemographicsByAddress(Addressvalidated, profile, filter, Country);
 
                 return resp;
             } catch (ApiException e) {
