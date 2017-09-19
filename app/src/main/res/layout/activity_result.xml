@@ -56,7 +56,7 @@
             android:textColor="#ffffff"
             android:id="@+id/Validated_Address_Value"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
     </LinearLayout>
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/Linear"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -79,9 +79,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Demographic Data of this Address "
             android:textColor="#ffffff"
-            android:id="@+id/Population_adult_count"
+            android:id="@+id/heading"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
 
@@ -91,7 +91,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/buttonLinear1"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -103,9 +103,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Adult Population :"
             android:textColor="#ffffff"
-            android:id="@+id/Population_adult_count"
+            android:id="@+id/Adult_Population"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
         <Space
@@ -130,7 +130,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/buttonLinear2"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -144,7 +144,7 @@
             android:textColor="#ffffff"
             android:id="@+id/Population_adult_count"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
         <Space
@@ -168,7 +168,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/buttonLinear3"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -182,7 +182,7 @@
             android:textColor="#ffffff"
             android:id="@+id/Female_population_count"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
         <Space
@@ -206,7 +206,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/buttonLinear4"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -220,7 +220,7 @@
             android:textColor="#ffffff"
             android:id="@+id/Male_population_count"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
         <Space
@@ -244,7 +244,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonLinear"
+        android:id="@+id/buttonLinear5"
         android:layout_below="@+id/textView7"
         android:layout_marginTop="10dp"
         android:weightSum="1">
@@ -258,7 +258,7 @@
             android:textColor="#ffffff"
             android:id="@+id/Household_Average_Income"
             android:layout_below="@+id/ImgView"
-            android:layout_alignParentStart="true"
+
             />
 
         <Space

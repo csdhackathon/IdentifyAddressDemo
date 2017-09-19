@@ -28,6 +28,8 @@ android {
         exclude 'META-INF/ASL2.0'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
+
+
     }
 }
 
@@ -42,5 +44,8 @@ dependencies {
 
     compile files('libs/identify-sdk-4.2.0.jar')
     compile files('libs/LocationIntelligenceJavaSDK-3.6.0.jar')
+
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+
+
 }
