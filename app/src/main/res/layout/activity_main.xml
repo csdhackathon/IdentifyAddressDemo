@@ -16,6 +16,7 @@
         android:src="@drawable/pb_logo_white"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
         android:id="@+id/ImgView"
         />
 
@@ -148,6 +149,7 @@
 
     <EditText
         android:layout_width="wrap_content"
+        android:minWidth="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/textCity"
         android:layout_marginLeft="48dp"
@@ -159,6 +161,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textState"
         android:text="ma"
         android:textColor="#ffffff"
@@ -168,6 +171,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textCountry"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/textView4"
@@ -177,6 +181,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textPopulation_adult_count"
         android:layout_marginLeft="48dp"
         android:visibility="gone"
@@ -189,6 +194,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textPopulation_range"
         android:visibility="gone"
         android:text=""
@@ -199,6 +205,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textMale_population_count"
         android:visibility="gone"
         android:textColor="#ffffff"
@@ -210,6 +217,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textAddressLine1"
         android:layout_below="@+id/textCountry"
         android:textColor="#ffffff"
@@ -219,6 +227,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textAddressLine2"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/textView6"
@@ -227,6 +236,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textFirmName"
         android:textColor="#ffffff"
         android:layout_alignTop="@+id/textView7"
@@ -235,6 +245,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textPostalCode"
         android:textColor="#ffffff"
         android:layout_alignBottom="@+id/textView3"
@@ -244,6 +255,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="200dp"
         android:id="@+id/textFemale_population_count"
         android:visibility="gone"
         android:textColor="#ffffff"
@@ -261,26 +273,26 @@
         android:weightSum="1">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Get Demographics"
-        android:id="@+id/buttonValidate"
-        android:background="#3E53A4"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="30dp"
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Demographics"
+            android:id="@+id/buttonValidate"
+            android:background="#3E53A4"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="30dp"
 
-        android:layout_alignLeft="@+id/textOutput"
-        android:layout_alignStart="@+id/textOutput"
-        android:layout_toLeftOf="@+id/textFirmName"
-        android:layout_toStartOf="@+id/textFirmName"
-        android:layout_weight="0.22" />
+            android:layout_alignLeft="@+id/textOutput"
+            android:layout_alignStart="@+id/textOutput"
+            android:layout_toLeftOf="@+id/textFirmName"
+            android:layout_toStartOf="@+id/textFirmName"
+            android:layout_weight="0.22" />
 
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
-             />
+            />
 
         <Button
             android:layout_width="wrap_content"

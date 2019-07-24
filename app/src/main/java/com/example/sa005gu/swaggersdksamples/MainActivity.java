@@ -2,12 +2,14 @@ package com.example.sa005gu.swaggersdksamples;
 
 import com.example.sa005gu.swaggersdksamples.R;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +36,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import pb.ApiClient;
 import pb.Configuration;
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     String address = "";
     String country = "";
+    Button validateButton;
+    protected ProgressDialog progressDialog;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -59,11 +64,10 @@ public class MainActivity extends AppCompatActivity {
         return new RequestObserver<ValidateMailingAddressProAPIResponseList>() {
             @Override
             public void onSucess(ValidateMailingAddressProAPIResponseList responseList) {
-
                 Gson gson = new GsonBuilder().create();
 
                 String response = gson.toJson(responseList);
-                Intent intent=  new Intent(getApplicationContext(), ResultActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
 
 
                 Log.d(response);
@@ -76,14 +80,14 @@ public class MainActivity extends AppCompatActivity {
                 ((EditText) findViewById(R.id.textFirmName)).setText(responseList.getResponses().get(0).getFirmname());
 
                 String block_address = responseList.getResponses().get(0).getBlockAddress();
-                address = responseList.getResponses().get(0).getAddressLine1() + " " + responseList.getResponses().get(0).getCity() + " " + responseList.getResponses().get(0).getStateProvince() + " " + responseList.getResponses().get(0).getPostalCode() ;
+                address = responseList.getResponses().get(0).getAddressLine1() + " " + responseList.getResponses().get(0).getCity() + " " + responseList.getResponses().get(0).getStateProvince() + " " + responseList.getResponses().get(0).getPostalCode();
                 country = responseList.getResponses().get(0).getCountry();
 
-                intent.putExtra("Address",address);
-                intent.putExtra("Block_Address",block_address);
-                intent.putExtra("Country",country);
-
+                intent.putExtra("Address", address);
+                intent.putExtra("Block_Address", block_address);
+                intent.putExtra("Country", country);
                 startActivity(intent);
+                hideProgressDialog();
             }
 
             @Override
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(ErrorResponse e) {
+                hideProgressDialog();
                 Log.d("Error: " + e.getRootErrorMessage());
             }
         };
@@ -102,19 +107,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final Context context = this;
-        Button validateButton = (Button) findViewById(R.id.buttonValidate);
+        initProgressDialog();
+        validateButton = (Button) findViewById(R.id.buttonValidate);
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 final String API_KEY = context.getString(R.string.API_KEY);
-                final String SECRET =   context.getString(R.string.SECRET);
-                if (API_KEY.isEmpty() || SECRET.isEmpty())
-                {
-
+                final String SECRET = context.getString(R.string.SECRET);
+                if (API_KEY.isEmpty() || SECRET.isEmpty()) {
                     AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                     alertDialog.setTitle("API_KEY and SECRET Missing");
                     alertDialog.setMessage("Enter your API_KEY and SECRET in build.gradle file to make this app running");
@@ -125,21 +126,22 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
                     alertDialog.show();
-                }
-                else {
+                } else {
                     IdentifyServiceManager identifyServiceManager = IdentifyServiceManager.getInstance(context, API_KEY, SECRET);
 
                     Address address2 = new Address();
-                    address2.setAddressLine1(((EditText) findViewById(R.id.textAddressLine1)).getText().toString());
-                    address2.setAddressLine2(((EditText) findViewById(R.id.textAddressLine2)).getText().toString());
-                    address2.setCity(((EditText) findViewById(R.id.textCity)).getText().toString());
-                    address2.setStateProvince(((EditText) findViewById(R.id.textState)).getText().toString());
-                    address2.setCountry(((EditText) findViewById(R.id.textCountry)).getText().toString());
-                    address2.setFirmName(((EditText) findViewById(R.id.textFirmName)).getText().toString());
+                    if (validateFields()) {
+                        showProgressDialog("Getting Demographics", false);
+                        address2.setAddressLine1(((EditText) findViewById(R.id.textAddressLine1)).getText().toString());
+                        address2.setAddressLine2(((EditText) findViewById(R.id.textAddressLine2)).getText().toString());
+                        address2.setCity(((EditText) findViewById(R.id.textCity)).getText().toString());
+                        address2.setStateProvince(((EditText) findViewById(R.id.textState)).getText().toString());
+                        address2.setCountry(((EditText) findViewById(R.id.textCountry)).getText().toString());
+                        address2.setFirmName(((EditText) findViewById(R.id.textFirmName)).getText().toString());
 
-
-                    final ValidateMailingAddressProAPIResponseList validateMailingAddressResponse = new ValidateMailingAddressProAPIResponseList();
-                    identifyServiceManager.getIdentifyAddressService().validateMailingAddressPro(context, Arrays.asList(address2), null, validateMailingAddressProCallBack(validateMailingAddressResponse.getResponses(), null));
+                        final ValidateMailingAddressProAPIResponseList validateMailingAddressResponse = new ValidateMailingAddressProAPIResponseList();
+                        identifyServiceManager.getIdentifyAddressService().validateMailingAddressPro(context, Arrays.asList(address2), null, validateMailingAddressProCallBack(validateMailingAddressResponse.getResponses(), null));
+                    }
                 }
             }
         });
@@ -159,11 +161,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-                // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
+    private boolean validateFields() {
+        if (TextUtils.isEmpty(((EditText) findViewById(R.id.textCity)).getText().toString())) {
+            Toast.makeText(this, "enter city", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(((EditText) findViewById(R.id.textState)).getText().toString())) {
+            Toast.makeText(this, "enter state", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(((EditText) findViewById(R.id.textCountry)).getText().toString())) {
+            Toast.makeText(this, "enter country", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        if (TextUtils.isEmpty(((EditText) findViewById(R.id.textAddressLine1)).getText().toString()))
+        {
+            Toast.makeText(this, "enter address line 1", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+
+    }
 
 
     /**
@@ -200,6 +228,47 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    /**
+     * Progress Dialog Init
+     */
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Getting Demographics");
+    }
+
+    /**
+     * Show Progress Dialog
+     *
+     * @param message     message to show
+     * @param cancellable dialog cancellable
+     */
+    @SuppressWarnings("SameParameterValue")
+    public void showProgressDialog(String message, boolean cancellable) {
+        try {
+            if (progressDialog != null) {
+                if (!TextUtils.isEmpty(message)) {
+                    progressDialog.setMessage(message);
+                }
+                progressDialog.setCancelable(cancellable);
+                if (!progressDialog.isShowing()) {
+                    progressDialog.show();
+                }
+            }
+        } catch (Throwable ignore) {
+        }
+    }
+
+    //Hide progress dialog.
+    public void hideProgressDialog() {
+        try {
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+        } catch (Throwable ignore) {
+        }
     }
 
 }
